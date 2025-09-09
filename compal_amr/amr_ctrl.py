@@ -68,6 +68,18 @@ class SwerveController:
 
         self.kp_gain = [50, 50, 50, 50, 0, 0, 0, 0]
         self.kd_gain = [1, 1, 1, 1, 1, 1, 1, 1]
+    
+    def normalize(self, angle, speed):
+        angle = ((angle + pi) % (2*pi)) - pi
+
+        if angle > pi/2:
+            angle -= pi
+            speed *= -1
+        elif angle < -pi/2:
+            angle += pi
+            speed *= -1
+
+        return angle, speed
 
     def compute(self, cmd_vel):
         vx, vy, wz = cmd_vel
@@ -89,6 +101,7 @@ class SwerveController:
 
             speed = sqrt(total_vx**2 + total_vy**2)
             angle = atan2(total_vy, total_vx)
+            angle, speed = self.normalize(angle, speed)
 
             wheel_speeds.append(speed)
             wheel_angles.append(angle)

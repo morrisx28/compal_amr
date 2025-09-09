@@ -42,7 +42,7 @@ class AMRNav(Node):
 
         self.first_step = True
         self.reset_needed = False
-        self.cmd_scale = 1
+        self.cmd_scale = 10
         self.cmd = np.zeros(3) # [v_x, v_y, w_z]
         self.initAMR(amr_init_pose)
 
@@ -52,6 +52,7 @@ class AMRNav(Node):
     def cmdCallback(self, msg: Twist):
         if self.world.is_playing():
             self.cmd[0] = msg.linear.x * self.cmd_scale
+            self.cmd[1] = msg.linear.y * self.cmd_scale
             self.cmd[2] = msg.angular.z * self.cmd_scale
 
     def loadEnv(self, env_usd_path):
@@ -84,7 +85,7 @@ class AMRNav(Node):
             wheelbase=0.45,
             trackwidth=0.23,
             name="Compal_AMR",
-            usd_path="/home/csl/Downloads/compal_amr/urdf/compal_amr/compal_amr.usd",
+            usd_path="/home/csl/workspaces/compal_amr/model/compal_amr.usd",
             position=amr_init_pose.position,
             orientation=amr_init_pose.orientation
         )
@@ -115,11 +116,11 @@ if __name__ == "__main__":
     )
     args, _ = parser.parse_known_args()
 
-    F5_USD_PATH = 'omniverse://localhost/NVIDIA/Assets/Isaac/4.2/Isaac/Environments/Hospital/hospital.usd'
+    USD_PATH = 'omniverse://localhost/NVIDIA/Assets/Isaac/4.2/Isaac/Environments/Hospital/hospital.usd'
 
     amr_init_pose = Pose()
     if args.env == '5f':
-        ENV_USD_PATH = F5_USD_PATH
+        ENV_USD_PATH = USD_PATH
         amr_init_pose.position = np.array([0, 0, 0.19])
 
     rclpy.init()
