@@ -85,7 +85,7 @@ class AMRNav(Node):
             wheelbase=0.45,
             trackwidth=0.23,
             name="Compal_AMR",
-            usd_path="/home/csl/workspaces/compal_amr/model/compal_amr.usd",
+            usd_path="/home/csl/workspaces/compal_amr/model/compal_amr_test.usd",
             position=amr_init_pose.position,
             orientation=amr_init_pose.orientation
         )
@@ -110,8 +110,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--env",
         type=str,
-        choices=["5f"],
-        default="5f",
+        choices=["hospital"],
+        default="hospital",
         help="Choice of navigation environment.",
     )
     args, _ = parser.parse_known_args()
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     USD_PATH = 'omniverse://localhost/NVIDIA/Assets/Isaac/4.2/Isaac/Environments/Hospital/hospital.usd'
 
     amr_init_pose = Pose()
-    if args.env == '5f':
+    if args.env == 'hospital':
         ENV_USD_PATH = USD_PATH
         amr_init_pose.position = np.array([0, 0, 0.19])
 
