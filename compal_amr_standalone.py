@@ -85,7 +85,7 @@ class AMRNav(Node):
             wheelbase=0.45,
             trackwidth=0.23,
             name="Compal_AMR",
-            usd_path="/home/csl/workspaces/compal_amr/model/compal_amr.usd",
+            usd_path="/home/csl/workspaces/compal_amr/model/compal_amr_v0/compal_amr.usd",
             position=amr_init_pose.position,
             orientation=amr_init_pose.orientation
         )
@@ -121,7 +121,7 @@ if __name__ == "__main__":
     amr_init_pose = Pose()
     if args.env == 'hospital':
         ENV_USD_PATH = USD_PATH
-        amr_init_pose.position = np.array([0, 0, 0.19])
+        amr_init_pose.position = np.array([0, 0, 0.4])
 
     rclpy.init()
     subscriber = AMRNav(ENV_USD_PATH, amr_init_pose)
